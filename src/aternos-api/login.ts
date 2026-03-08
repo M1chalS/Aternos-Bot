@@ -4,20 +4,20 @@ import { Server as ProxyChainServer } from 'proxy-chain';
 import fs from 'fs';
 import path from 'path';
 
-const   cookiesPath = path.resolve(process.cwd(), 'aternos-cookies.json');
+const cookiesPath = path.resolve(process.cwd(), 'aternos-cookies.json');
 
 export async function loginToAternos(user: string, pass: string): Promise<Cookie[]> {
-  if (fs.existsSync(cookiesPath)) {
-    try {
-      const raw = fs.readFileSync(cookiesPath, 'utf8');
-      if (raw.trim().length > 0) {
-        const cookies: Cookie[] = JSON.parse(raw);
-        return cookies;
-      }
-    } catch {
-      console.warn('⚠️ Invalid or corrupted cookies file. Regenerating...');
-    }
-  }
+  // if (fs.existsSync(cookiesPath)) {
+  //   try {
+  //     const raw = fs.readFileSync(cookiesPath, 'utf8');
+  //     if (raw.trim().length > 0) {
+  //       const cookies: Cookie[] = JSON.parse(raw);
+  //       return cookies;
+  //     }
+  //   } catch {
+  //     console.warn('⚠️ Invalid or corrupted cookies file. Regenerating...');
+  //   }
+  // }
 
   const port = await getFreePort();
   const proxyServer = new ProxyChainServer({ port });
@@ -56,7 +56,7 @@ export async function loginToAternos(user: string, pass: string): Promise<Cookie
 
   await new Promise(resolve => setTimeout(resolve, 5000));
 
-  const cookies: Cookie[] = await page.cookies();
+  const cookies: Cookie[] = await browser.cookies();
   fs.writeFileSync(cookiesPath, JSON.stringify(cookies, null, 2));
 
   await browser.close();
