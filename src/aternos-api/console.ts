@@ -35,9 +35,10 @@ export async function viewConsoleLive(cookies: Cookie[], serverId: string): Prom
       ],
     });
 
+    await browser.setCookie(...cookies);
+
     const page: Page = await browser.newPage();
     await page.setUserAgent(randomUserAgent());
-    await page.setCookie(...cookies);
 
     await page.goto('https://aternos.org/servers/', {
       waitUntil: 'domcontentloaded',

@@ -4,7 +4,7 @@ import { Server as ProxyChainServer } from 'proxy-chain';
 import fs from 'fs';
 import path from 'path';
 
-const cookiesPath = path.resolve(process.cwd(), 'aternos-cookies.json');
+const   cookiesPath = path.resolve(process.cwd(), 'aternos-cookies.json');
 
 export async function loginToAternos(user: string, pass: string): Promise<Cookie[]> {
   if (fs.existsSync(cookiesPath)) {
@@ -43,6 +43,7 @@ export async function loginToAternos(user: string, pass: string): Promise<Cookie
   await page.setUserAgent(
     randomUserAgent()
   );
+
 
   await page.goto('https://aternos.org/go/', {
       waitUntil: 'domcontentloaded',

@@ -30,8 +30,9 @@
     "facebook": "https://www.facebook.com/share/19KrEB93gM/"
   },
   "scripts": {
-    "build": "tsup && node post-build.js",
-    "release": "npm run build && auto shipit"
+    "start": "ts-node-dev --poll src/index.ts",
+    "clean": "del-cli ./build/*",
+    "build": "npm run clean && tsc"
   },
   "keywords": [
     "aternos",
@@ -42,19 +43,22 @@
     "exocore"
   ],
   "dependencies": {
-    "axios": "^1.9.0",
+    "axios": "1.13.5",
     "axios-cookiejar-support": "^4.0.7",
     "chalk": "^4.1.2",
     "cheerio": "^1.1.0",
     "devtools-protocol": "^0.0.1473885",
+    "discord.js": "^14.25.1",
     "extract-zip": "^2.0.1",
-    "form-data": "^4.0.3",
+    "form-data": "4.0.4",
     "freeport": "^1.0.5",
     "gradient-string": "^2.0.0",
     "proxy-chain": "^2.5.9",
     "puppeteer-core": "^24.10.1",
     "stable-chromium": "^127.0.0",
-    "tough-cookie": "^5.1.2"
+    "tough-cookie": "^5.1.2",
+    "ts-node-dev": "^2.0.0",
+    "del-cli": "^7.0.0"
   },
   "devDependencies": {
     "@types/freeport": "^1.0.24",

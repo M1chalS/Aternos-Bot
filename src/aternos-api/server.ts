@@ -32,14 +32,15 @@ export async function getServerList(cookies: Cookie[]): Promise<ServerListRespon
     ],
   });
 
-  const page: Page = await browser.newPage();
-  let servers: ServerInfo[] = [];
+  await browser.setCookie(...cookies);
 
+  const page: Page = await browser.newPage();
+
+  let servers: ServerInfo[] = [];
   try {
     await page.setUserAgent(
       randomUserAgent()
     );
-    await page.setCookie(...cookies);
     await page.goto('https://aternos.org/servers/', {
       waitUntil: 'domcontentloaded',
       timeout: 60000,

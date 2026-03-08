@@ -132,4 +132,5 @@ dist
 # Replit debugger
 .breakpoints
 .replit
-index.ts
+
+.idea

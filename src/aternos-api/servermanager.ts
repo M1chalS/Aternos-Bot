@@ -22,7 +22,7 @@ interface ActionResult {
 type ServerTask = 'info' | 'start' | 'stop' | 'restart';
 
 export async function manageServer(cookies: Cookie[], serverId: string, task: 'info'): Promise<DashboardInfo | null>;
-export async function manageServer(cookies: Cookie[], serverId:string, task: 'start' | 'stop' | 'restart'): Promise<ActionResult>;
+export async function manageServer(cookies: Cookie[], serverId: string, task: 'start' | 'stop' | 'restart'): Promise<ActionResult>;
 export async function manageServer(cookies: Cookie[], serverId: string, task: ServerTask): Promise<DashboardInfo | null | ActionResult> {
   if (!serverId) {
     return task === 'info' ? null : { success: false, message: 'Error: Server ID is required.' };
@@ -51,12 +51,13 @@ export async function manageServer(cookies: Cookie[], serverId: string, task: Se
         ],
       });
 
+      await browser.setCookie(...cookies);
+
       const page: Page = await browser.newPage();
 
       await page.setUserAgent(
         randomUserAgent()
       );
-      await page.setCookie(...cookies);
       await page.goto('https://aternos.org/servers/', {
         waitUntil: 'domcontentloaded',
         timeout: 60000,
@@ -95,6 +96,9 @@ export async function manageServer(cookies: Cookie[], serverId: string, task: Se
         });
         return info;
       } else {
+        await page.waitForSelector('.fc-cta-consent', { visible: true, timeout: 10000 });
+        await page.click('.fc-cta-consent');
+
         const currentStatus = await page.evaluate(() => document.querySelector('.statuslabel-label')?.textContent?.trim() || null);
 
         if (task === 'start') {
@@ -113,6 +117,7 @@ export async function manageServer(cookies: Cookie[], serverId: string, task: Se
 
         const selector = `#${task}`;
         await page.waitForSelector(selector, { visible: true, timeout: 10000 });
+
         await page.click(selector);
 
         if (task === 'start') {

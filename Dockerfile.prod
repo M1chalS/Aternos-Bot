@@ -1,0 +1,16 @@
+FROM node:20-slim
+
+RUN apt-get update && \
+    apt-get install -y wget gnupg ca-certificates chromium
+
+WORKDIR /app
+
+COPY package.json .
+RUN npm install
+COPY . .
+
+COPY ./dist ./src
+
+EXPOSE 3000
+
+CMD ["node", "src/index.js"]
