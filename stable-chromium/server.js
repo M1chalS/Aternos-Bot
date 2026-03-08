@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const freeport = require('freeport');
 const ProxyChain = require('proxy-chain');
 const path = require('path');

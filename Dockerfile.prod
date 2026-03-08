@@ -1,14 +1,23 @@
-FROM node:20-slim
+FROM alpine
 
-RUN apt-get update && \
-    apt-get install -y wget gnupg ca-certificates chromium
+RUN apk add --no-cache \
+      chromium \
+      nss \
+      freetype \
+      harfbuzz \
+      ca-certificates \
+      ttf-freefont \
+      nodejs \
+      npm
+
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 WORKDIR /app
 
 COPY package.json .
 RUN npm install
-COPY . .
 
+COPY . .
 COPY ./dist ./src
 
 EXPOSE 3000

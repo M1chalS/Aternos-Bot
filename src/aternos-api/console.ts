@@ -1,5 +1,5 @@
 import { getFreePort, resolveChromiumPath, randomUserAgent } from './global/set';
-import puppeteer, { Browser, Page, Cookie } from 'puppeteer-core';
+import puppeteer, { Browser, Page, Cookie } from 'puppeteer';
 import { Server as ProxyChainServer } from 'proxy-chain';
 import gradient from 'gradient-string';
 
@@ -25,7 +25,6 @@ export async function viewConsoleLive(cookies: Cookie[], serverId: string): Prom
 
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: resolveChromiumPath(),
       args: [
         '--ignore-certificate-errors',
         '--disable-gpu',

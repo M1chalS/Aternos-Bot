@@ -1,5 +1,5 @@
 import { getFreePort, resolveChromiumPath, randomUserAgent } from './global/set';
-import puppeteer, { Browser, Page, Cookie } from 'puppeteer-core';
+import puppeteer, { Browser, Page, Cookie } from 'puppeteer';
 import { Server as ProxyChainServer } from 'proxy-chain';
 
 interface ServerInfo {
@@ -21,7 +21,6 @@ export async function getServerList(cookies: Cookie[]): Promise<ServerListRespon
 
   const browser: Browser = await puppeteer.launch({
     headless: true,
-    executablePath: resolveChromiumPath(),
     args: [
       '--ignore-certificate-errors',
       '--disable-gpu',

@@ -54,7 +54,7 @@
     "freeport": "^1.0.5",
     "gradient-string": "^2.0.0",
     "proxy-chain": "^2.5.9",
-    "puppeteer-core": "^24.10.1",
+    "puppeteer": "^24.38.0",
     "stable-chromium": "^127.0.0",
     "tough-cookie": "^5.1.2",
     "ts-node-dev": "^2.0.0",

@@ -1,5 +1,5 @@
 import { getFreePort, resolveChromiumPath, randomUserAgent } from './global/set';
-import puppeteer, { Browser, Page, Cookie } from 'puppeteer-core';
+import puppeteer, { Browser, Page, Cookie } from 'puppeteer';
 import { Server as ProxyChainServer } from 'proxy-chain';
 import fs from 'fs';
 import path from 'path';
@@ -28,7 +28,6 @@ export async function loginToAternos(user: string, pass: string): Promise<Cookie
 
   const browser: Browser = await puppeteer.launch({
     headless: true,
-    executablePath: resolveChromiumPath(),
     args: [
       '--ignore-certificate-errors',
       '--disable-gpu',
